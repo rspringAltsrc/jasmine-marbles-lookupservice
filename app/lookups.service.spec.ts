@@ -28,16 +28,7 @@ describe('LookupsService', () => {
     // This works for the most part.
 
     const values = {
-      f: <FieldWorkerType[]>[
-        {
-          id: 1,
-          description: 'foo'
-        },
-        {
-          id: 2,
-          description: 'bar'
-        }
-      ]
+      f: <FieldWorkerType[]>[{ id: 1, description: 'foo' }, { id: 2, description: 'bar' }]
     };
 
     const source = '--f|';
@@ -57,16 +48,7 @@ describe('LookupsService', () => {
 
   it('shareReplay prevents multiple calls to api - using two subscribers and a delay', () => {
     const values = {
-      f: <FieldWorkerType[]>[
-        {
-          id: 1,
-          description: 'foo'
-        },
-        {
-          id: 2,
-          description: 'bar'
-        }
-      ]
+      f: <FieldWorkerType[]>[{ id: 1, description: 'foo' }, { id: 2, description: 'bar' }]
     };
 
     const source = '--f|';
@@ -168,17 +150,18 @@ describe('LookupsService', () => {
   // Taking another stab at the two subscribers and the delay
   it('shareReplay prevents multiple calls to api - using TestScheduler', () => {
     testScheduler.run(helpers => {
-      // const { cold, hot, expectObservable, expectSubscriptions, flush } = helpers;
-
       const values = {
         f: <FieldWorkerType[]>[{ id: 1, description: 'foo' }, { id: 2, description: 'bar' }]
       };
       const source = '   ----f---------f----|';
+      
       const sub1 = '   --^';
-      const sub2 = '   -----------^';
-      const sub3 = '   --------^';
       const expect1 = '------f---------f';
+      
+      const sub2 = '   -----------^';
       const expect2 = '-----------f----f';
+      
+      const sub3 = '   --------^';
       const expect3 = '--------f-------f';
 
       fieldWorkerTypesSpy.and.returnValue(cold(source, values));
