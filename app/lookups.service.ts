@@ -88,6 +88,6 @@ export class LookUpsService {
 	)
 
 	refreshLookups() {
-		this._refresh.next();
+		this._refresh.next(null);
 	}
 }
